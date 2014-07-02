@@ -40,13 +40,15 @@ class Admin::ContentController < Admin::BaseController
   def merge
     @current_article = Article.find(params[:current_article])
     @article_to_delete = Article.find(params[:merge_with])
-
+   
     unless (@article_to_delete.access_by? current_user) and (@current_article.access_by? current_user)
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
       return
     end
 
+    @current_article.body = @current_article.body + ' ' + @article_to_delete.body
+    @current_article.save
     @article_to_delete.destroy
     flash[:notice] = _("The articles were merged successfully")
     redirect_to :action => 'index'
