@@ -52,6 +52,7 @@ class Admin::ContentController < Admin::BaseController
       comment.article = @current.article
     end
     @current_article.save
+    @current_article.comments.reload
     @article_to_delete.destroy
     flash[:notice] = _("The articles were merged successfully")
     redirect_to :action => 'index'
