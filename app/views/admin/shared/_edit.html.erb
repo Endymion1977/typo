@@ -4,9 +4,11 @@
   <%= render :partial => "form" %>
 
 <% end %>
-<%= form_tag('/admin/content/merge', :id => "merge_form", :enctype => "multipart/form-data", method: :post) do %>
-  <h4>Merge Articles</h4>
-  <%= _("Article ID") %> <%= text_field_tag 'merge_with', nil, :class => 'large' %>
-  <%= hidden_field_tag 'current_article', @article.id %>
-  <%= submit_tag 'Merge' %>
+<% if admin? %>
+  <%= form_tag('/admin/content/merge', :id => "merge_form", :enctype => "multipart/form-data", method: :post) do %>
+    <h4>Merge Articles</h4>
+    <%= _("Article ID") %> <%= text_field_tag 'merge_with', nil, :class => 'large' %>
+    <%= hidden_field_tag 'current_article', @article.id %>
+    <%= submit_tag 'Merge' %>
+  <% end %>
 <% end %>

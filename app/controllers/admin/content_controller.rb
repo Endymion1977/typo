@@ -41,7 +41,7 @@ class Admin::ContentController < Admin::BaseController
     @current_article = Article.find(params[:current_article])
     @article_to_delete = Article.find(params[:merge_with])
    
-    unless (@article_to_delete.access_by? current_user) and (@current_article.access_by? current_user)
+    unless current_user.admin?
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
       return

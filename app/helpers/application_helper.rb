@@ -6,6 +6,10 @@ module ApplicationHelper
   # Basic english pluralizer.
   # Axe?
 
+  def admin?
+    @current_user.admin?
+  end
+
   def pluralize(size, zero, one , many )
     case size
     when 0 then zero
