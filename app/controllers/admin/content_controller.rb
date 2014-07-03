@@ -48,6 +48,9 @@ class Admin::ContentController < Admin::BaseController
     end
 
     @current_article.body = @current_article.body + ' ' + @article_to_delete.body
+    @article_to_delete.comments.each do |comment|
+      comment.article = @current.article
+    end
     @current_article.save
     @article_to_delete.destroy
     flash[:notice] = _("The articles were merged successfully")
