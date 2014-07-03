@@ -49,10 +49,11 @@ class Admin::ContentController < Admin::BaseController
 
     @current_article.body = @current_article.body + ' ' + @article_to_delete.body
     @article_to_delete.comments.each do |comment|
-      comment.article = @current.article
+      comment.article = @current_article
+      comment.save
     end
+    @article_to_delete.reload
     @current_article.save
-    @current_article.comments.reload
     @article_to_delete.destroy
     flash[:notice] = _("The articles were merged successfully")
     redirect_to :action => 'index'
